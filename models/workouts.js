@@ -3,56 +3,52 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-  firstName: {
-    type: String,
-    trim: true,
-    required: "First Name is Required"
-  },
+    day: {
+        type: Date,
+        default: Date.now
+    },
 
-  lastName: {
-    type: String,
-    trim: true,
-    required: "Last Name is Required"
-  },
+    exercise: [{
+        type: {
+            type: String,
+            trim: true,
+           
+        },
 
-  username: {
-    type: String,
-    trim: true,
-    required: "Username is Required"
-  },
+        name: {
+            type: String,
+            trim: true,
+           
+        },
 
-  password: {
-    type: String,
-    trim: true,
-    required: "Password is Required",
-    validate: [
-      ({length}) => length >= 6,
-      "Password should be longer."
-    ]
-  },
+        weight: {
+            type: Number,
+            
+            
+        },
 
-  email: {
-    type: String,
-    unique: true,
-    match: [/.+@.+\..+/, "Please enter a valid e-mail address"]
-  },
+        sets: {
+            type: Number,
+        },
 
-  userCreated: {
-    type: Date,
-    default: Date.now
-  },
-
-  lastUpdated: Date,
-
-  fullName: String
+        reps: {
+            type: Number,
+        },
+        duration: {
+            type: Number,
+        },
+        distance: {
+            type: Number,
+        },
+       
+    }]
+   
 });
 
-// setFullName: sets the current user's `fullName` property to their lastName appended to their `firstName`
 
-// lastUpdatedDate: sets the current user's `lastUpdated` property to Date.now()
 
 // This creates our model from the above schema, using mongoose's model method
-const User = mongoose.model("User", UserSchema);
+const Workout = mongoose.model("Workout", workoutSchema);
 
 // Export the User model
-module.exports = User;
+module.exports = Workout;
