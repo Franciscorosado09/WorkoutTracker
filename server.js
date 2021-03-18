@@ -23,13 +23,14 @@ mongoose.connect(
   process.env.MONGODB_URI || "mongodb://localhost/workout",
   {
     useNewUrlParser: true,
-   
-    useFindAndModify: false,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false
   }
 );
 //need to attach routes
 
-// require("./routes/api-routes.js")(app)
+require("./routes/api-routes.js")(app)
 require("./routes/html-routes.js")(app)
 
 app.listen(PORT, () => {

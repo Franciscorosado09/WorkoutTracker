@@ -20,36 +20,40 @@ const workoutSchema = new Schema({
             trim: true,
            
         },
-
+        duration: {
+            type: Number,
+        },
         weight: {
             type: Number,
             
             
+        },
+        reps: {
+            type: Number,
         },
 
         sets: {
             type: Number,
         },
 
-        reps: {
-            type: Number,
-        },
-        duration: {
-            type: Number,
-        },
+        
         distance: {
             type: Number,
         },
        
-    }]
+    }]},
+
+    {
+        toJSON: {virtuals: true},
+    }
    
-});
+);
 
 
 
 
 // This creates our model from the above schema, using mongoose's model method
-const Workout = mongoose.model("Workout", workoutSchema);
+const Workouts = mongoose.model("Workouts", workoutSchema);
 
 // Export the User model
-module.exports = Workout;
+module.exports = Workouts;
