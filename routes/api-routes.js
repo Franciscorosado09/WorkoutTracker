@@ -84,7 +84,7 @@ module.exports = (app) => {
         console.log(body)
         console.log('Hello World')
         Workouts.create(body)
-            .then(Workouts => {
+            .then(dbWorkouts => {
                 console.log(body)
                 res.json(dbWorkouts);
             })
