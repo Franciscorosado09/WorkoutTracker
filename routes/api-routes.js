@@ -50,26 +50,28 @@ module.exports = (app) => {
     })
 
     // //range
-    // app.get("/api/workouts/range", (req, res) => {
-    //     Workout.aggregate([{ $limit: 7 },
-    //     {
-    //         $addFields: {
-    //             totalDuration: {
-    //                 $sum: "$exercise.duration"
+    app.get("/api/workouts/range", (req, res) => {
+        console.log(res)
 
-    //             }
-    //         }
+        Workouts.aggregate([{ $limit: 7 },
+        {
+            $addFields: {
+                totalDuration: {
+                    $sum: "$exercises.duration"
 
-    //     },
+                }
+            }
 
-    //     ])
-    //         .then(Workouts => {
-    //             res.json(Workouts)
-    //         })
-    //         .catch(err => {
-    //             res.status(err)
-    //         })
-    // })
+        },
+
+        ])
+            .then(dbWorkouts => {
+                res.json(dbWorkouts)
+            })
+            .catch(err => {
+                res.status(err)
+            })
+    })
 
 
 
@@ -82,7 +84,7 @@ module.exports = (app) => {
         console.log(body)
         console.log('Hello World')
         Workouts.create(body)
-            .then(dbWorkouts => {
+            .then(Workouts => {
                 console.log(body)
                 res.json(dbWorkouts);
             })
@@ -97,15 +99,16 @@ module.exports = (app) => {
 
 
 
-    app.put("/api/workouts:id", (req, res) => {
+    app.put("/api/workouts/:id", (req, res) => {
             console.log(req)
             console.log('test put')
             Workouts.findOneAndUpdate({
-                _id: req.params.id
-            }, {
+             _id: req.params.id
+            }, 
+            {
                 $push: 
                 {
-                    exercise: req.body
+                    exercises: req.body
                 }
             }, 
             
@@ -113,21 +116,15 @@ module.exports = (app) => {
                 new: true
             }
 
-        ).then(Workouts => {
-            console.log("test")
-            console.log(req.body)
-            console.log(req.params.id)
-            res.json(Workouts)
-        }
-
-
-
-        ).catch(err => {
+        ).then(dbWorkouts => {
+            // console.log("test")
+            // console.log(req.body)
+            // console.log(req.params.id)
+            res.json(dbWorkouts);
+        }).catch(err => {
             res.json(err)
         })
     });
-
-
 
 
 

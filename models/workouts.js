@@ -43,9 +43,9 @@ const workoutSchema = new Schema({
        
     }]},
 
-    {
-        toJSON: {virtuals: true},
-    }
+    // {
+    //     toJSON: {virtuals: true},
+    // }
    
 );
 
